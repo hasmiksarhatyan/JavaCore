@@ -41,7 +41,7 @@ public class FigurePainter2 {
                     System.out.print(" *");
                 }
             }
-            if (i > 3) {
+            else  {
                 for (int j = 2; j < i; j++) {
                     System.out.print(" ");
                 }
