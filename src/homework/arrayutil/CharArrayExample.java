@@ -24,13 +24,14 @@ public class CharArrayExample {
         } else {
             System.out.println(false);
         }
-        char[] bobArray = {'b', 'a', 'b', 'o', 'l', 'a' };
-        for (int i = 0; i < bobArray.length; i++) {
+        char[] bobArray = {'k', 'a', 'b', 'b', 'l', 'b' };
+        boolean bob=false;
+        for (int i = 0; i < bobArray.length-2; i++) {
             if (bobArray[i] == 'b' && bobArray[i + 2] == 'b')
-                System.out.println(true);
-            else
-                System.out.println(false);
+            {bob=true;}
         }
+        System.out.println(bob);
+
         char[] text = {' ', ' ', 'b', 'a', 'r', 'e', 'v', ' ', ' ' };
         for (int j = 0; j < text.length; j++) {
             if (text[j] != ' ') {

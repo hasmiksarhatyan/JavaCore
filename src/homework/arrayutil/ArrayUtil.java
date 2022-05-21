@@ -1,6 +1,6 @@
 package homework.arrayutil;
 
-public class arrayutil {
+public class ArrayUtil {
     public static void main(String[] args) {
         int[] array = {20, 7, -1, 10, 32, 10, 11, 76, 102, 33};
         for (int i = 0; i < array.length; i++) {
