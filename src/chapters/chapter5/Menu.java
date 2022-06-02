@@ -18,12 +18,12 @@ public class Menu {
         switch (choice) {
             case '1':
                 System.out.println("if:\n");
-                System.out.println("if( ) operator;");
+                System.out.println("if(condition) operator;");
                 System.out.println("else operator;");
                 break;
             case '2':
                 System.out.println("switch:\n");
-                System.out.println("switch()  {");
+                System.out.println("switch(condition)  {");
                 System.out.println("case constant:");
                 System.out.println("sequence of operators");
                 System.out.println("break;");
