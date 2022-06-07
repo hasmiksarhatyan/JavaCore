@@ -10,7 +10,7 @@ public class PracticeHomeworkDemo {
         System.out.println(ph.lessThanOrEqualToZero(-5));
         System.out.println(ph.reverseBool(true));
         int[] array1 = {5, 4, 3, 58, 8};
-        int[] array2 = {25, 47, 8, 0, 4, 88, 90};
+        int[] array2 = {25, 47, 8, 0, 4};
         System.out.println(ph.maxLength(array1, array2));
     }
 }

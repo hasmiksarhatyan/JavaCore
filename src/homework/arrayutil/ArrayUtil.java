@@ -63,6 +63,7 @@ public class ArrayUtil {
     }
 
 
+
     int countofodd(int array[]) {
         int countofodd = 0;
         for (int i = 0; i < array.length; i++) {
@@ -113,6 +114,7 @@ public class ArrayUtil {
         }
     }
 }
+
 
 
 

@@ -8,7 +8,7 @@ public class PracticeHomework {
             return 0;
         } else {
             System.out.print(minutes + " minutes = ");
-            return minutes * 60;
+            return minutes * 60L;
         }
     }
 
@@ -26,17 +26,11 @@ public class PracticeHomework {
     }
 
     boolean isSameNum(int a, int b) {
-        if (a == b) {
-            return true;
-        } else {
-            return false;
-        }
+        return a == b;
     }
 
     boolean lessThanOrEqualToZero(int number) {
-        if (number <= 0) {
-            return true;
-        } else return false;
+        return number <= 0;
     }
 
     boolean reverseBool(boolean value) {
@@ -44,17 +38,7 @@ public class PracticeHomework {
     }
 
     int maxLength(int[] array1, int[] array2) {
-        if (array1.length == array2.length) {
-            System.out.println("array1.lenght=array2.lenght");
-            return 0;
-        } else {
-            if (array1.length > array2.length) {
-                System.out.print("array1 length = ");
-                return array1.length;
-            } else {
-                System.out.print("array2 length = ");
-                return array2.length;
-            }
-        }
+        return array1.length > array2.length ? array1.length : array2.length;
+
     }
 }
