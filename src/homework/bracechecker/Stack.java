@@ -1,22 +1,28 @@
 package homework.bracechecker;
 
 public class Stack {
-    private char[] array = new char[20];
-    public int size;
+    private int[] array = new int[1];
+    private int size;
+    void  setSize(int i){size=i;}
+    int getSize(){return size;}
 
     public Stack() {
         size = -1;
     }
 
-    public void push(char value) {
+    public void push(int value) {
         if (size == array.length-1) {
-            System.out.println("stack-ը վերջացավ ");
-        } else {
+            int[] temp=new int[array.length+10];
+            for (int i = 0; i < array.length; i++) {
+                temp[i]=array[i];
+            }
+            array=temp;
+        }
             array[++size] = value;
         }
-    }
 
-    public char pop() {
+
+    public int pop() {
         if (size < 0) {
             System.out.println("stack-ը դատարկ է");
             return 0;
