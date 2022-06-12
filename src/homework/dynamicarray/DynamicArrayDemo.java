@@ -1,5 +1,4 @@
 package homework.dynamicarray;
-
 public class DynamicArrayDemo {
     public static void main(String[] args) {
         DynamicArray dynarray = new DynamicArray();

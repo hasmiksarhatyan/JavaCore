@@ -20,13 +20,12 @@ public class DynamicArray {
     public boolean isEmpty() {
         return size == -1;
     }
-
-
     public int getByIndex(int index) {
         if (index <= size && index > 0) {
             return array[index];
         } else return 0;
     }
+
 
     public int getFirstIndexByValue(int value) {
         for (int i = 0; i <= size; i++) {
@@ -57,7 +56,6 @@ public class DynamicArray {
         }
         printArray();
     }
-
 
     public void delete(int index) {
         if (index <= size && index >= 0) {
