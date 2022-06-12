@@ -3,7 +3,7 @@ package homework.dinamicarray;
 public class DinamicArrayDemo {
     public static void main(String[] args) {
         DynamicArray dynarray = new DynamicArray();
-        dynarray.add(4);
+        dynarray.add(7);
         dynarray.add(55);
         dynarray.add(4);
         dynarray.add(8);

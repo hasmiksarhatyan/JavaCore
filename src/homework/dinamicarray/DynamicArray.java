@@ -40,8 +40,8 @@ public class DynamicArray {
         }
         return 0;
     }
-    //Գրել մեթոդ set անունով, որը կընդունի int index, int value և վալյուն կդնի տրված ինդեքսի տեղը(կփոխարինի էղած արժեքին).
 
+    //Գրել մեթոդ set անունով, որը կընդունի int index, int value և վալյուն կդնի տրված ինդեքսի տեղը(կփոխարինի էղած արժեքին).
     public void set(int index, int value) {
         if (index <= size && index >= 0) {
             array[index] = value;
