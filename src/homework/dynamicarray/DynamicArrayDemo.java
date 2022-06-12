@@ -1,6 +1,6 @@
-package homework.dinamicarray;
+package homework.dynamicarray;
 
-public class DinamicArrayDemo {
+public class DynamicArrayDemo {
     public static void main(String[] args) {
         DynamicArray dynarray = new DynamicArray();
         dynarray.add(7);
