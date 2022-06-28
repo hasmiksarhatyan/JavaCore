@@ -18,14 +18,13 @@ public class StudentStorage {
     }
 
 
-    private void increaseArray() {
-        Student[] temp = new Student[array.length + 10];
-        for (int i = 0; i < size; i++) {
-            temp[i] = array[i];
-
+    public Student getStudentByIndex(int index) {
+        if (index < 0 || index >= size) {
+            return null;
         }
-        array = temp;
+        return array[index];
     }
+
 
     public void deleteByInndex(int index) {
         if (index < 0 || index >= size) {
@@ -58,4 +57,14 @@ public class StudentStorage {
             array[index].setLesson(lessonName);
         }
     }
+
+    private void increaseArray() {
+        Student[] temp = new Student[array.length + 10];
+        for (int i = 0; i < size; i++) {
+            temp[i] = array[i];
+
+        }
+        array = temp;
+    }
+
 }

@@ -1,6 +1,6 @@
-package chapters.chapter7;
+package chapters.chapter7.overload;
 
-public class OverloadDemo {
+public class Overload {
     // Продемонстрировать перегрузку методов
     void test() {
         System.out.println("Пapaмeтpы отсутствуют");
@@ -26,21 +26,4 @@ public class OverloadDemo {
     }
 }
 
-class Overload {
-    public static void main(String args[]) {
-        OverloadDemo ob = new OverloadDemo();
-        double result;
-        //   вызвать все
-        //  варианты метода
 
-        ob.test();
-        ob.test();
-        ob.test(10);
-        ob.test(10, 20);
-        result = ob.test(123.25);
-        System.out.println(
-                "Результат вызова ob.test(123.25): " + result);
-
-    }
-
-}

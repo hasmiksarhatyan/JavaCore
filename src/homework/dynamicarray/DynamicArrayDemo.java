@@ -16,8 +16,10 @@ public class DynamicArrayDemo {
         dynarray.set(4, 100);
         System.out.println();
         dynarray.add(3, -6);
+        dynarray.printArray();
         System.out.println();
         dynarray.delete(4);
+        dynarray.printArray();
     }
 }
 
