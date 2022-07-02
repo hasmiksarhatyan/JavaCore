@@ -1,6 +1,6 @@
-package homework.books;
+package homework.books.storage;
 
-import homework.students.Student;
+import homework.books.model.Book;
 
 public class BookStorage {
     private Book[] array = new Book[10];
@@ -26,19 +26,6 @@ public class BookStorage {
 
         }
         array = temp;
-    }
-
-    public void printBooksByAuthorName(String authorName) {
-        int count = 0;
-        for (int i = 0; i < size; i++) {
-            if (array[i].getAuthorName().equals(authorName)) {
-                System.out.println(array[i]);
-                count++;
-            }
-        }
-        if (count == 0) {
-            System.out.println("Author not found");
-        }
     }
 
 

@@ -1,4 +1,7 @@
-package homework.students;
+package homework.students.storage;
+
+import homework.students.model.Lesson;
+import homework.students.model.Student;
 
 public class StudentStorage {
     private Student[] array = new Student[10];
@@ -50,7 +53,7 @@ public class StudentStorage {
         return size;
     }
 
-    public void changeStudentLesson(int index, String lessonName) {
+    public void changeStudentLesson(int index, Lesson lessonName) {
         if (index < 0 || index >= size) {
             System.out.println("invalid index ");
         } else {
