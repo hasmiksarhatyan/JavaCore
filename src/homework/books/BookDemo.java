@@ -3,6 +3,7 @@
 package homework.books;
 
 import homework.books.command.Commands;
+import homework.books.exception.AuthorNotFoundException;
 import homework.books.model.Author;
 import homework.books.model.Book;
 import homework.books.storage.AuthorStorage;
@@ -17,19 +18,24 @@ public class BookDemo implements Commands {
     private static AuthorStorage authorStorage = new AuthorStorage();
 
     public static void main(String[] args) {
-        Author JuleVerne = new Author("Jule", "Verne", "nnnn@nnn", "MALE");
-        authorStorage.add(JuleVerne);
-        Author AlbertCamus = new Author("Albert", "Camus", "nnnn@nnn", "MALE");
-        authorStorage.add(AlbertCamus);
-        Author Murphy = new Author("Raymond", "Murfy", "nnnn@nnn", "MALE");
-        authorStorage.add(Murphy);
-        bookStorage.add(new Book("Twenty Thousand Leagues Under the Sea", JuleVerne, 15, 1, "science fiction"));
-        bookStorage.add(new Book("The Plague", AlbertCamus, 30, 1, "philosophical"));
-        bookStorage.add(new Book("English Grammar", Murphy, 40, 2, "study"));
+        Author jule_verne = new Author("Jule", "Verne", "nnnn@nnn", "MALE");
+        authorStorage.add(jule_verne);
+        Author albert_camus = new Author("Albert", "Camus", "nnnn@nnn", "MALE");
+        authorStorage.add(albert_camus);
+        Author murphy = new Author("Raymond", "Murfy", "nnnn@nnn", "MALE");
+        authorStorage.add(murphy);
+        bookStorage.add(new Book("Twenty Thousand Leagues Under the Sea", jule_verne, 15, 1, "science fiction"));
+        bookStorage.add(new Book("The Plague", albert_camus, 30, 1, "philosophical"));
+        bookStorage.add(new Book("English Grammar", murphy, 40, 2, "study"));
         boolean run = true;
         while (run) {
             Commands.printCommand();
-            int command = Integer.parseInt(scanner.nextLine());
+            int command;
+            try {
+                command = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                command = -1;
+            }
             switch (command) {
                 case EXIT:
                     run = false;
@@ -66,25 +72,42 @@ public class BookDemo implements Commands {
         if (authorStorage.getSize() != 0) {
             authorStorage.print();
             System.out.println("please choose author index");
-            int authorIndex = Integer.parseInt(scanner.nextLine());
-            Author author = authorStorage.getAuthorByIndex(authorIndex);
-            if (author == null) {
-                System.out.println("please choose corect index!");
-            } else {
+            try {
+                int authorIndex = Integer.parseInt(scanner.nextLine());
+                Author author = authorStorage.getAuthorByIndex(authorIndex);
                 System.out.println("please input book's title");
                 String title = scanner.nextLine();
                 System.out.println("please input book's price");
-                double price = Double.parseDouble(scanner.nextLine());
+                double price;
+                try {
+                    price = Double.parseDouble(scanner.nextLine());
+                } catch (NumberFormatException e) {
+                    System.out.println("wrong format of price!");
+                    price = 0;
+                }
                 System.out.println("please input book's count");
-                int count = Integer.parseInt(scanner.nextLine());
+                int count;
+                try {
+                    count = Integer.parseInt(scanner.nextLine());
+                } catch (NumberFormatException e) {
+                    System.out.println("wrong format of count!");
+                    count = 0;
+                }
                 System.out.println("please input book's genre");
                 String genre = scanner.nextLine();
                 Book book = new Book(title, author, price, count, genre);
                 bookStorage.add(book);
                 System.out.println("book created");
+            } catch (AuthorNotFoundException e) {
+                System.out.println(e + " please choose correct index !");
+                addBooks();
+            } catch (NumberFormatException e) {
+                System.out.println("wrong format of index please input number!");
+                addBooks();
             }
         }
     }
+
 
     private static boolean isValidGender(String gender) {
         if (gender.equals("MALE") || gender.equals("FEMALE")) {
@@ -117,9 +140,21 @@ public class BookDemo implements Commands {
     private static void printBooksByPriceRange() {
         System.out.println("please enter price range ");
         System.out.print("price1 ");
-        double price1 = Double.parseDouble(scanner.nextLine());
+        double price1;
+        try {
+            price1 = Double.parseDouble(scanner.nextLine());
+        } catch (NumberFormatException e) {
+            price1 = 0;
+            System.out.println("wrong format of price!");
+        }
         System.out.print("price2 ");
-        double price2 = Double.parseDouble(scanner.nextLine());
+        double price2;
+        try {
+            price2 = Double.parseDouble(scanner.nextLine());
+        } catch (NumberFormatException e) {
+            price2 = 0;
+            System.out.println("wrong format of price!");
+        }
         bookStorage.printBooksByPriceRange(price1, price2);
     }
 
