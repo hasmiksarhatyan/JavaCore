@@ -6,6 +6,7 @@ import homework.books.command.Commands;
 import homework.books.exception.AuthorNotFoundException;
 import homework.books.model.Author;
 import homework.books.model.Book;
+import homework.books.model.Gender;
 import homework.books.storage.AuthorStorage;
 import homework.books.storage.BookStorage;
 
@@ -18,53 +19,68 @@ public class BookDemo implements Commands {
     private static AuthorStorage authorStorage = new AuthorStorage();
 
     public static void main(String[] args) {
-        Author jule_verne = new Author("Jule", "Verne", "nnnn@nnn", "MALE");
-        authorStorage.add(jule_verne);
-        Author albert_camus = new Author("Albert", "Camus", "nnnn@nnn", "MALE");
-        authorStorage.add(albert_camus);
-        Author murphy = new Author("Raymond", "Murfy", "nnnn@nnn", "MALE");
+        Author juleVerne = new Author("Jule", "Verne", "nnnn@nnn", Gender.MALE);
+        authorStorage.add(juleVerne);
+        Author albertCamus = new Author("Albert", "Camus", "nnnn@nnn", Gender.MALE);
+        authorStorage.add(albertCamus);
+        Author murphy = new Author("Raymond", "Murfy", "nnnn@nnn", Gender.MALE);
         authorStorage.add(murphy);
-        bookStorage.add(new Book("Twenty Thousand Leagues Under the Sea", jule_verne, 15, 1, "science fiction"));
-        bookStorage.add(new Book("The Plague", albert_camus, 30, 1, "philosophical"));
+        bookStorage.add(new Book("Twenty Thousand Leagues Under the Sea", juleVerne, 15, 1, "science fiction"));
+        bookStorage.add(new Book("The Plague", albertCamus, 30, 1, "philosophical"));
         bookStorage.add(new Book("English Grammar", murphy, 40, 2, "study"));
-        boolean run = true;
-        while (run) {
-            Commands.printCommand();
-            int command;
-            try {
-                command = Integer.parseInt(scanner.nextLine());
-            } catch (NumberFormatException e) {
-                command = -1;
+        System.out.println("please enter login,password");
+        if (login()) {
+            boolean run = true;
+            while (run) {
+                Commands.printCommand();
+                int command;
+                try {
+                    command = Integer.parseInt(scanner.nextLine());
+                } catch (NumberFormatException e) {
+                    command = -1;
+                }
+                switch (command) {
+                    case EXIT:
+                        run = false;
+                        break;
+                    case ADD_BOOK:
+                        addBooks();
+                        break;
+                    case PRINT_ALL_BOOKS:
+                        bookStorage.print();
+                        break;
+                    case PRINT_BOOKS_BY_AUTHORE_NAME:
+                        printBooksByAuthorName();
+                        break;
+                    case PRINT_BOOKS_BY_GENRE:
+                        printBooksByGenre();
+                        break;
+                    case PRINT_BOOKS_BY_PRICE_RANGE:
+                        printBooksByPriceRange();
+                        break;
+                    case ADD_AUTHOR:
+                        addAuthor();
+                        break;
+                    case PRINT_ALL_AUTHOR:
+                        authorStorage.print();
+                        break;
+                    default:
+                        System.out.println("invalid command ");
+                }
             }
-            switch (command) {
-                case EXIT:
-                    run = false;
-                    break;
-                case ADD_BOOK:
-                    addBooks();
-                    break;
-                case PRINT_ALL_BOOKS:
-                    bookStorage.print();
-                    break;
-                case PRINT_BOOKS_BY_AUTHORE_NAME:
-                    printBooksByAuthorName();
-                    break;
-                case PRINT_BOOKS_BY_GENRE:
-                    printBooksByGenre();
-                    break;
-                case PRINT_BOOKS_BY_PRICE_RANGE:
-                    printBooksByPriceRange();
-                    break;
-                case ADD_AUTHOR:
-                    addAuthor();
-                    break;
-                case PRINT_ALL_AUTHOR:
-                    authorStorage.print();
-                    break;
-                default:
-                    System.out.println("invalid command ");
-            }
+
         }
+    }
+
+    private static boolean login() {
+        String login = "admin";
+        String password = "123456";
+        if (login.equals(scanner.nextLine()) & password.equals(scanner.nextLine())) {
+            return true;
+        }
+        System.out.println("wrong login or password!!!");
+        System.out.println("please input correct login,password");
+        return login();
     }
 
     private static void addBooks() {
@@ -102,19 +118,12 @@ public class BookDemo implements Commands {
                 System.out.println(e + " please choose correct index !");
                 addBooks();
             } catch (NumberFormatException e) {
-                System.out.println("wrong format of index please input number!");
+                System.out.println("wrong format of index, please input correct number!");
                 addBooks();
             }
         }
     }
 
-
-    private static boolean isValidGender(String gender) {
-        if (gender.equals("MALE") || gender.equals("FEMALE")) {
-            return true;
-        }
-        return false;
-    }
 
     private static void addAuthor() {
         System.out.println("please input author name");
@@ -124,14 +133,16 @@ public class BookDemo implements Commands {
         System.out.println("please input author email");
         String email = scanner.nextLine();
         System.out.println("please input author gender, MALE or FEMALE");
-        String gender = scanner.nextLine();
-        if (!isValidGender(gender)) {
-            System.out.println("please input correct gender");
-            addAuthor();
-        } else {
+        Gender gender;
+        try {
+            gender = Gender.valueOf(scanner.nextLine().toUpperCase());
             Author author = new Author(name, surname, email, gender);
             authorStorage.add(author);
             System.out.println("author created");
+
+        } catch (IllegalArgumentException e) {
+            System.out.println("please input correct gender");
+            addAuthor();
 
         }
     }
