@@ -117,7 +117,7 @@ public class StudentDemo implements Commands {
         String userData[] = userDataStr.split(",");
         if (userData.length < 4) {
             System.out.println("Please input correct data!");
-        } else if (userStorage.getUserByEmail(userData[0]) == null) {
+        } else if (userStorage.getUserByEmail(userData[2]) == null) {
             User user = new User();
             user.setName(userData[0]);
             user.setSurname(userData[1]);
@@ -127,7 +127,7 @@ public class StudentDemo implements Commands {
             userStorage.add(user);
             System.out.println("User created!");
         } else {
-            System.out.println("User with " + userData[0] + " already exists!");
+            System.out.println("User with " + userData[2] + " already exists!");
         }
 
     }

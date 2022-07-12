@@ -69,19 +69,23 @@ public class BookDemo implements Commands {
         System.out.println("Please input email,password");
         String emailPasswordStr = scanner.nextLine();
         String[] emailPassword = emailPasswordStr.split(",");
-        User user = userStorage.getUserByEmail(emailPassword[0]);
-        if (user == null) {
-            System.out.println("User with " + emailPassword[0] + " does not exists!");
+        if (emailPassword.length != 2) {
+            System.out.println("Please input correct email,password!");
         } else {
-            if (user.getPassword().equals(emailPassword[1])) {
-                currentUser = user;
-                if (user.getUserType() == UserType.ADMIN) {
-                    loginAdmin();
-                } else if (user.getUserType() == UserType.USER) {
-                    loginUser();
-                }
+            User user = userStorage.getUserByEmail(emailPassword[0]);
+            if (user == null) {
+                System.out.println("User with " + emailPassword[0] + " does not exists!");
             } else {
-                System.out.println("Password is wrong!");
+                if (user.getPassword().equals(emailPassword[1])) {
+                    currentUser = user;
+                    if (user.getUserType() == UserType.ADMIN) {
+                        loginAdmin();
+                    } else if (user.getUserType() == UserType.USER) {
+                        loginUser();
+                    }
+                } else {
+                    System.out.println("Password is wrong!");
+                }
             }
         }
     }
@@ -90,21 +94,22 @@ public class BookDemo implements Commands {
         System.out.println("please enter name,surname,email,password");
         String userDataStr = scanner.nextLine();
         String userData[] = userDataStr.split(",");
-        if (userData.length < 4) {
+        if (userData.length != 4) {
             System.out.println("Please input correct data!");
-        } else if (userStorage.getUserByEmail(userData[0]) == null) {
-            User user = new User("admin", "admin", "admin@mail.com", "admin", UserType.ADMIN);
-            user.setName(userData[0]);
-            user.setSurname(userData[1]);
-            user.setEmail(userData[2]);
-            user.setPassword(userData[3]);
-            user.setUserType(UserType.USER);
-            userStorage.add(user);
-            System.out.println("User created!");
         } else {
-            System.out.println("User with " + userData[0] + " already exists!");
+            if (userStorage.getUserByEmail(userData[2]) == null) {
+                User user = new User();
+                user.setName(userData[0]);
+                user.setSurname(userData[1]);
+                user.setEmail(userData[2]);
+                user.setPassword(userData[3]);
+                user.setUserType(UserType.USER);
+                userStorage.add(user);
+                System.out.println("User created!");
+            } else {
+                System.out.println("User with " + userData[2] + " already exists!");
+            }
         }
-
     }
 
     private static void loginAdmin() {
