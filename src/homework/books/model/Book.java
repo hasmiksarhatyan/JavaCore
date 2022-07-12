@@ -1,6 +1,5 @@
 package homework.books.model;
 
-import homework.students.model.User;
 
 public class Book {
     private String title;
@@ -17,9 +16,6 @@ public class Book {
         this.count = count;
         this.genre = genre;
         this.registeredUser = registeredUser;
-    }
-
-    public Book() {
     }
 
     public void setTitle(String title) {

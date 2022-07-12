@@ -117,8 +117,7 @@ public class StudentDemo implements Commands {
         String userData[] = userDataStr.split(",");
         if (userData.length < 4) {
             System.out.println("Please input correct data!");
-        }
-        if (userStorage.getUserByEmail(userData[0]) == null) {
+        } else if (userStorage.getUserByEmail(userData[0]) == null) {
             User user = new User();
             user.setName(userData[0]);
             user.setSurname(userData[1]);

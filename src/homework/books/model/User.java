@@ -1,6 +1,5 @@
 package homework.books.model;
 
-import homework.students.model.UserType;
 
 public class User {
     private String name;
@@ -9,13 +8,13 @@ public class User {
     private String password;
     private UserType userType;
 
+
     public User(String name, String surname, String email, String password, UserType userType) {
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.password = password;
         this.userType = userType;
-
     }
 
     public User() {

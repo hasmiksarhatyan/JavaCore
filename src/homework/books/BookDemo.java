@@ -10,8 +10,8 @@ import homework.books.model.Gender;
 import homework.books.storage.AuthorStorage;
 import homework.books.storage.BookStorage;
 import homework.books.storage.UserStorage;
-import homework.students.model.User;
-import homework.students.model.UserType;
+import homework.books.model.User;
+import homework.books.model.UserType;
 
 
 import java.util.Scanner;
@@ -20,7 +20,7 @@ public class BookDemo implements Commands {
     private static Scanner scanner = new Scanner(System.in);
     private static BookStorage bookStorage = new BookStorage();
     private static AuthorStorage authorStorage = new AuthorStorage();
-    private static UserStorage userStorage=new UserStorage();
+    private static UserStorage userStorage = new UserStorage();
     private static User currentUser = null;
 
     public static void main(String[] args) {
@@ -60,10 +60,11 @@ public class BookDemo implements Commands {
         authorStorage.add(albertCamus);
         Author murphy = new Author("Raymond", "Murfy", "nnnn@nnn", Gender.MALE);
         authorStorage.add(murphy);
-        bookStorage.add(new Book("Twenty Thousand Leagues Under the Sea", juleVerne, 15, 1, "science fiction",admin));
-        bookStorage.add(new Book("The Plague", albertCamus, 30, 1, "philosophical",admin));
-        bookStorage.add(new Book("English Grammar", murphy, 40, 2, "study",admin));
+        bookStorage.add(new Book("Twenty Thousand Leagues Under the Sea", juleVerne, 15, 1, "science fiction", admin));
+        bookStorage.add(new Book("The Plague", albertCamus, 30, 1, "philosophical", admin));
+        bookStorage.add(new Book("English Grammar", murphy, 40, 2, "study", admin));
     }
+
     private static void login() {
         System.out.println("Please input email,password");
         String emailPasswordStr = scanner.nextLine();
@@ -84,15 +85,15 @@ public class BookDemo implements Commands {
             }
         }
     }
+
     private static void register() {
         System.out.println("please enter name,surname,email,password");
         String userDataStr = scanner.nextLine();
         String userData[] = userDataStr.split(",");
         if (userData.length < 4) {
             System.out.println("Please input correct data!");
-        }
-        if (userStorage.getUserByEmail(userData[0]) == null) {
-            User user = new User();
+        } else if (userStorage.getUserByEmail(userData[0]) == null) {
+            User user = new User("admin", "admin", "admin@mail.com", "admin", UserType.ADMIN);
             user.setName(userData[0]);
             user.setSurname(userData[1]);
             user.setEmail(userData[2]);
@@ -147,6 +148,7 @@ public class BookDemo implements Commands {
             }
         }
     }
+
     private static void loginUser() {
         System.out.println("Welcome " + currentUser.getName());
         boolean run = true;
@@ -214,7 +216,7 @@ public class BookDemo implements Commands {
                 }
                 System.out.println("please input book's genre");
                 String genre = scanner.nextLine();
-                Book book = new Book(title, author, price, count, genre,currentUser);
+                Book book = new Book(title, author, price, count, genre, currentUser);
                 bookStorage.add(book);
                 System.out.println("book created");
             } catch (AuthorNotFoundException e) {
