@@ -9,10 +9,10 @@ public class FileUtil {
 
     public static void main(String[] args) throws IOException {
         // fileSearch();
-        // contentSearch();
+        //contentSearch();
         // findLines();
         // printSizeOfPackage();
-           createFileWithContent();
+         createFileWithContent();
     }
 
     //այս մեթոդը պետք է սքաններով վերցնի երկու string.
@@ -57,12 +57,9 @@ public class FileUtil {
                     try {
                         BufferedReader br = new BufferedReader(new FileReader(file.getAbsoluteFile()));
                         while (!br.readLine().contains(keyword)) ;
-                        {
-                            br.readLine();
-                            System.out.println(file.getName());
-                        }
+                        System.out.println(file.getName());
                     } catch (NullPointerException e) {
-                        System.out.println("keyword not found in folder " + file.getName());
+
                     }
                 }
             }
@@ -131,19 +128,21 @@ public class FileUtil {
             System.out.println("please input file name");
             String fileName = scanner.nextLine();
             String filepath = path + "\\" + fileName + ".txt";
+            File myfile = new File(filepath);
             System.out.println("please input file content");
             int count = 0;
             try (BufferedWriter bw = new BufferedWriter(new FileWriter(filepath))) {
                 while (count != 10) {
                     count++;
                     String content = scanner.nextLine();
-                    bw.append(content + "\n");
+                    bw.write(content + "\n");
 
                 }
             }
         }
     }
 }
+
 
 
 
