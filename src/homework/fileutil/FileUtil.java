@@ -9,10 +9,10 @@ public class FileUtil {
 
     public static void main(String[] args) throws IOException {
         // fileSearch();
-        //contentSearch();
+        contentSearch();
         // findLines();
         // printSizeOfPackage();
-         createFileWithContent();
+        //createFileWithContent();
     }
 
     //այս մեթոդը պետք է սքաններով վերցնի երկու string.
@@ -21,21 +21,11 @@ public class FileUtil {
     //Որպես արդյունք պտի ծրագիրը տպի true եթե կա էդ ֆայլը էդ պապկի մեջ, false եթե չկա։
     static void fileSearch() {
         System.out.println("please input folder path");
-        String path = scanner.nextLine();
-        File folder = new File(path);
-        if (!folder.exists() || !folder.isDirectory()) {
-            System.out.println("wrong path!");
-        } else {
-            System.out.println("please input file name");
-            File[] files = folder.listFiles();
-            for (File file : files) {
-                String[] fileName = file.getName().split("\\.");
-                System.out.println(fileName[0].equals(scanner.nextLine()));
-
-            }
-        }
+        File folder = new File(scanner.nextLine());
+        System.out.println("please input file name");
+        File file = new File(folder.getAbsolutePath() + "\\" + scanner.nextLine());
+        System.out.println(file.exists());
     }
-
 
     //այս մեթոդը պետք է սքաններով վերցնի երկու string.
     // 1 - path թե որ ֆոլդերում ենք փնտրելու
@@ -46,24 +36,26 @@ public class FileUtil {
         System.out.println("please input folder path");
         String path = scanner.nextLine();
         File folder = new File(path);
-        if (!folder.exists() || !folder.isDirectory()) {
-            System.out.println("path is wrong!");
-        } else {
+        if (folder.exists() && folder.isDirectory()) {
             System.out.println("please input keyword");
             String keyword = scanner.nextLine();
             File[] files = folder.listFiles();
             for (File file : files) {
-                if (file.getName().endsWith("txt") && file.isFile()) {
-                    try {
-                        BufferedReader br = new BufferedReader(new FileReader(file.getAbsoluteFile()));
-                        while (!br.readLine().contains(keyword)) ;
-                        System.out.println(file.getName());
-                    } catch (NullPointerException e) {
-
+                if (file.isFile() && file.getName().endsWith("txt")) {
+                    try (BufferedReader br = new BufferedReader(new FileReader(file.getAbsoluteFile()))) {
+                        String line;
+                        while ((line = br.readLine()) != null) {
+                            if (line.contains(keyword)) {
+                                System.out.println(file.getName());
+                                break;
+                            }
+                        }
+                    } catch (IOException e) {
+                        System.out.println(e.getMessage());
                     }
                 }
             }
-        }
+        }else System.out.println("wrong path!");
     }
 
 
@@ -87,6 +79,7 @@ public class FileUtil {
                         System.out.println(countOfLines + ":" + line);
                     }
                 }
+            } catch (IOException e) {
             }
         } else {
             System.out.println("wrong path!");
@@ -138,6 +131,8 @@ public class FileUtil {
                     bw.write(content + "\n");
 
                 }
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
             }
         }
     }
