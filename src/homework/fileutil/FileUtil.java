@@ -36,12 +36,19 @@ public class FileUtil {
         System.out.println("please input folder path");
         String path = scanner.nextLine();
         File folder = new File(path);
+        System.out.println("please input keyword");
+        String keyword = scanner.nextLine();
+        recursionSearch(folder, keyword);
+
+    }
+
+    private static void recursionSearch (File folder, String keyword) throws IOException{
         if (folder.exists() && folder.isDirectory()) {
-            System.out.println("please input keyword");
-            String keyword = scanner.nextLine();
             File[] files = folder.listFiles();
             for (File file : files) {
-                if (file.isFile() && file.getName().endsWith("txt")) {
+                if (file.isDirectory()) {
+                    recursionSearch(file, keyword);
+                } else if (file.isFile() && file.getName().endsWith(".txt")) {
                     try (BufferedReader br = new BufferedReader(new FileReader(file.getAbsoluteFile()))) {
                         String line;
                         while ((line = br.readLine()) != null) {
@@ -55,9 +62,8 @@ public class FileUtil {
                     }
                 }
             }
-        }else System.out.println("wrong path!");
+        }
     }
-
 
     //այս մեթոդը պետք է սքաններով վերցնի երկու string.
     // 1 - txtPath txt ֆայլի փաթը
@@ -80,6 +86,7 @@ public class FileUtil {
                     }
                 }
             } catch (IOException e) {
+                System.out.println(e.getMessage());
             }
         } else {
             System.out.println("wrong path!");
